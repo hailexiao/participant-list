@@ -56,7 +56,7 @@ class App extends Component {
           type="button"
           className="btn btn-info btn-lg"
           id="newParticipantBtn"
-          disabled={!Meteor.user()}
+          disabled={!this.props.currentUser}
           onClick={this.renderModal}
           >Add Participant</button>
         <NewParticipantModal />
@@ -73,6 +73,7 @@ export default createContainer(() => {
   Meteor.subscribe('participants');
 
   return {
-    participants: Participants.find({}, { sort: { createdAt: -1 } }).fetch()
+    participants: Participants.find({}, { sort: { createdAt: -1 } }).fetch(),
+    currentUser: Meteor.user()
   };
 }, App);
